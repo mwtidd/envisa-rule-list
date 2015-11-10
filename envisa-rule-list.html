@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 
+<link rel="import" href="../paper-button/paper-button.html">
+
 <link rel="import" href="../envisa-model/envisa-collection.html">
 
 <link rel="import" href="envisa-rule-item.html">
@@ -31,11 +33,12 @@ Example:
   </style>
 
   <template>
-    <envisa-collection id="rules" url="[[url]]" path="[[path]]"></envisa-collection>
+    <envisa-collection id="rules" collection="{{collection}}" url="[[url]]" path="[[path]]" model-class="com.envisa.rule.model.mongo.MongoEnvisaRule"></envisa-collection>
 
-    <template is="dom-repeat" items="{{rules.collection}}">
+    <template is="dom-repeat" items="{{collection}}">
       <envisa-rule-item model="{{item}}"></envisa-rule-item>
     </template>
+    <paper-button id="addButton">Add a Rule</paper-button>
     <content></content>
   </template>
 
@@ -46,6 +49,10 @@ Example:
   Polymer({
 
     is: 'envisa-rule-list',
+
+    listeners: {
+      "addButton.tap":"onAddTap"
+    },
 
     properties: {
 
@@ -68,7 +75,17 @@ Example:
         type: String,
         value: null,
         notify: true
-      }
+      },
+
+      /**
+       *  `collection` The collection of data models
+       *  @type {array}
+       **/
+      collection: {
+        type: Array,
+        value: [],
+        notify: true
+      },
 
     },
 
@@ -102,17 +119,9 @@ Example:
 
     // Element Behavior
 
-    /**
-     * Sometimes it's just nice to say hi.
-     *
-     * @param {string} greeting A positive greeting.
-     * @return {string} The full greeting.
-     */
-    doSomething: function(something) {
-      var response = something || 'nothing';
-      return response;
+    onAddTap: function(event){
+      this.$.rules.createModel();
     }
-
   });
 
 </script>

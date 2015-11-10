@@ -9,6 +9,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
 <!--
 An element to start from.
 
@@ -27,7 +30,7 @@ Example:
   </style>
 
   <template>
-    <div>[[model.id]]</div>
+    <paper-card><paper-item>[[model.id]]</paper-item></paper-card>
     <content></content>
   </template>
 
@@ -45,39 +48,7 @@ Example:
         type: Object,
         value: null,
         notify: true
-      },
-
-      /**
-       * `ourChild` is a property that is shared with other elements
-       * @type {}
-       */
-      ourChild: Object,
-
-
-
-      /**
-       * `myChild` is a property that will not be shared with other elements..
-       *
-       * @type {{name: string, image: string}}
-       */
-      myChild: {
-        type: Object,
-        // Use `value` to provides a default value for a property, by setting it
-        // on your element's prototype.
-        //
-        // If you provide a function, as we do here, Polymer will call that
-        // _per element instance_.
-        //
-        // We do that to ensure that each element gets its own copy of the
-        // value, rather than having it shared across all instances (via the
-        // prototype).
-        value: function() {
-          return {
-            name:  'Michael Tidd',
-            image: 'https://lh5.googleusercontent.com/-3232a_lJJ3U/AAAAAAAAAAI/AAAAAAAAAAA/C0RRd-AFHkQ/s32-c-mo/photo.jpg',
-          };
-        }
-      },
+      }
 
     },
 
@@ -90,7 +61,6 @@ Example:
       //
       // This is the point where you should make modifications to the DOM (when
       // necessary), or kick off any processes the element wants to perform.
-
     },
 
     attached: function() {
@@ -111,27 +81,7 @@ Example:
 
     // Element Behavior
 
-    /**
-     * Sometimes it's just nice to say hi.
-     *
-     * @param {string} greeting A positive greeting.
-     * @return {string} The full greeting.
-     */
-    doSomething: function(something) {
-      var response = something || 'nothing';
-      return response;
-    },
 
-    /**
-     * Tesla does the Firing, Apple does the Hiring
-     */
-    doTheFiring: function(who){
-      if(who == "tesla"){
-        this.fire("fired", true);
-      }else if(who == "apple"){
-        this.fire("fired", false);
-      }
-    }
 
   });
 
